@@ -24,11 +24,11 @@ class Preprocessor(BaseModel, abc.ABC):
     """
 
     def __call__(self, doc: Document, *args, **kwargs) -> Document:
-        doc = self.preprocess_page(doc, *args, **kwargs)
+        doc = self.process_document(doc, *args, **kwargs)
         return doc
 
     @abc.abstractmethod
-    def preprocess_page(self, doc: Document, *args, **kwargs) -> Document: ...
+    def process_document(self, doc: Document, *args, **kwargs) -> Document: ...
 
 
 class PreprocessorComposer(BaseModel):
@@ -61,7 +61,7 @@ class PreprocessorComposer(BaseModel):
 
 class RemoveHeader(Preprocessor):
     """Removes the first line of the page content of a document"""
-    def preprocess_page(self, doc: Document, *args, **kwargs) -> Document:
+    def process_document(self, doc: Document, *args, **kwargs) -> Document:
         if "rm_header" not in doc.metadata:
             text = doc.page_content
             content = text.split("\n", 1)[
@@ -76,7 +76,7 @@ class RemoveHeader(Preprocessor):
 class SimpleDehyphens(Preprocessor):
     """'Silbentrennung': Simply removes Hyphens between words which are
     separated by a newline"""
-    def preprocess_page(self, doc: Document, *args, **kwargs) -> Document:
+    def process_document(self, doc: Document, *args, **kwargs) -> Document:
         text = doc.page_content
         content = text.replace(" -\n", "")  # not optimal!
         doc.page_content = content
@@ -86,7 +86,7 @@ class SimpleDehyphens(Preprocessor):
 class RemoveStartingNumbers(Preprocessor):
     """Special for the PDF Documents of the project. This removes 'weird'
     numbers at the beginning of Document."""
-    def preprocess_page(self, doc: Document, *args, **kwargs) -> Document:
+    def process_document(self, doc: Document, *args, **kwargs) -> Document:
         # TODO Do not remove sections numbers at the beginning
         text = doc.page_content
         # used gpt for the regex....looks a bit weird
@@ -130,7 +130,7 @@ class AddSectionNamesWithTOC(Preprocessor):
         title = sections[index, 1]
         return title
 
-    def preprocess_page(self, doc: Document, *args, **kwargs) -> Document:
+    def process_document(self, doc: Document, *args, **kwargs) -> Document:
         page_num = doc.metadata["page"]
         section_title = self._find_section_from_toc(page_num)
         splitted = section_title.split(" ", 1)
