@@ -976,6 +976,24 @@ files = [
 ]
 
 [[package]]
+name = "flashrank"
+version = "0.2.0"
+description = "Ultra lite & Super fast SoTA cross-encoder based re-ranking for your search & retrieval pipelines."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "FlashRank-0.2.0-py3-none-any.whl", hash = "sha256:5915312326549e9b311a763b92f03c137986b95dd3bf7ac756ca58596486fdb4"},
+    {file = "FlashRank-0.2.0.tar.gz", hash = "sha256:3f168e10a4d2a5a5a3842c59c26a57ca970ccac4cd6b3580852bf9bf67f5a4e4"},
+]
+
+[package.dependencies]
+numpy = "*"
+onnxruntime = "*"
+requests = "*"
+tokenizers = "*"
+tqdm = "*"
+
+[[package]]
 name = "flatbuffers"
 version = "24.3.25"
 description = "The FlatBuffers serialization format for Python"
@@ -5764,4 +5782,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4bf650c6f49bc167941b7b33aa8d3f39dd6719b6c5a3625d1ca847c92d07ad56"
+content-hash = "802d5c9390203a4b0f865fbd22618fe9d69415a946c31f7995fb4b0a16621be3"
