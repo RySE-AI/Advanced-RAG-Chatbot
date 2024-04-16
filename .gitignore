@@ -1,3 +1,7 @@
+# Project specifics
+# data/ stores the chroma db data
+data/* 
+
 # Experiment specifcs
 .vscode/*
 
