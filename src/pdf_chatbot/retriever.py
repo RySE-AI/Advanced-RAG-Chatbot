@@ -1,6 +1,5 @@
-import asyncio
 import logging
-from typing import List, Optional, Sequence
+from typing import List, Optional
 
 from langchain_core.callbacks import (
     AsyncCallbackManagerForRetrieverRun,
@@ -39,10 +38,10 @@ DEFAULT_QUERY_PROMPT = PromptTemplate(
     questions separated by newlines. Original question: {question}""",
 )
 
-    
+
 class MultiQueryRetrieverWithQueries(MultiQueryRetriever):
     return_queries: bool = False
-        
+
     @classmethod
     def from_llm(
         cls,
@@ -51,7 +50,7 @@ class MultiQueryRetrieverWithQueries(MultiQueryRetriever):
         prompt: PromptTemplate = DEFAULT_QUERY_PROMPT,
         parser_key: Optional[str] = None,
         include_original: bool = False,
-        return_queries: bool = False
+        return_queries: bool = False,
     ) -> "MultiQueryRetriever":
         """Initialize from llm using default template.
 
@@ -70,7 +69,7 @@ class MultiQueryRetrieverWithQueries(MultiQueryRetriever):
             retriever=retriever,
             llm_chain=llm_chain,
             include_original=include_original,
-            return_queries=return_queries
+            return_queries=return_queries,
         )
 
     async def _aget_relevant_documents(
@@ -92,15 +91,14 @@ class MultiQueryRetrieverWithQueries(MultiQueryRetriever):
             queries.append(query)
         documents = await self.aretrieve_documents(queries, run_manager)
         unique_docs = self.unique_union(documents)
-        
+
         if self.return_queries:
-            results = {"documents": unique_docs,
-                       "queries": queries}
+            results = {"documents": unique_docs, "queries": queries}
             return results
-        
+
         else:
             return self.unique_union(documents)
-        
+
     def _get_relevant_documents(
         self,
         query: str,
@@ -120,11 +118,10 @@ class MultiQueryRetrieverWithQueries(MultiQueryRetriever):
             queries.append(query)
         documents = self.retrieve_documents(queries, run_manager)
         unique_docs = self.unique_union(documents)
-        
+
         if self.return_queries:
-            results = {"documents": unique_docs,
-                    "queries": queries}
+            results = {"documents": unique_docs, "queries": queries}
             return results
-        
+
         else:
             return self.unique_union(documents)
