@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "pdf-chatbot"
+version = "0.1.0"
+description = ""
+authors = ["RySE-AI <Ryo.Shibata@outlook.de>"]
+readme = "README.md"
+packages = [{include = "pdf_chatbot", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain = "^0.1.15"
+langchain-core = "^0.1.41"
+langchain-community = "^0.0.32"
+chromadb = "^0.4.24"
+chainlit = "^1.0.502"
+openai = "^1.16.2"
+pypdf = "^4.2.0"
+tabula-py = "^2.9.0"
+pypdf2 = "^3.0.1"
+pdfplumber = "^0.11.0"
+pdf2image = "^1.17.0"
+pillow = "^10.3.0"
+torch = "^2.2.2"
+torchvision = "^0.17.2"
+neo4j = "^5.19.0"
+python-dotenv = "^1.0.1"
+transformers = "^4.39.3"
+lingua-language-detector = "^2.0.2"
+langdetect = "^1.0.9"
+langchain-openai = "^0.1.2"
+pytesseract = "^0.3.10"
+jarowinkler = "^2.0.1"
+pymupdf = "^1.24.1"
+pdfminer-six = "^20231228"
+sentence-transformers = "^2.6.1"
+deep-translator = "^1.11.4"
+grandalf = "^0.8"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
