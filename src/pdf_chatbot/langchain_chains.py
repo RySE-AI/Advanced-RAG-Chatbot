@@ -75,3 +75,29 @@ def translation_branch_chain():
     } | _route
 
     return translate_chain
+
+
+def create_multi_query_retriever_with_translator(
+    retriever, format_docs, prompt, llm, parser
+):
+    mq_retriever = MultiQueryRetrieverWithQueries.from_llm(
+        retriever=retriever, llm=llm, include_original=True, return_queries=True
+    )
+
+    rag_chain_from_docs = (
+        RunnablePassthrough.assign(
+            context=(lambda x: format_docs(x["context"]["documents"]))
+        )
+        | prompt
+        | llm
+        | parser
+    )
+
+    rag_chain_with_source = RunnableParallel(
+        {
+            "context": translation_branch_chain() | mq_retriever,
+            "question": RunnablePassthrough(),
+        }
+    ).assign(answer=rag_chain_from_docs)
+
+    return rag_chain_with_source
