@@ -1,13 +1,8 @@
-from langchain_core.runnables import chain
 from langdetect import detect_langs
-from operator import itemgetter
-
-from langchain.schema.runnable import (
-    RunnableParallel,
-    RunnablePassthrough,
-    RunnableBranch,
-)
 from deep_translator import GoogleTranslator
+from langchain_core.runnables import chain
+from langchain.schema.runnable import RunnableParallel, RunnablePassthrough
+
 from pdf_chatbot.retriever import MultiQueryRetrieverWithQueries
 
 
