@@ -7,7 +7,7 @@ from pdf_chatbot.retriever import MultiQueryRetrieverWithQueries
 
 
 @chain
-def detect_german_language(text: str, threshold: float = 0.7):
+def detect_foreign_language(text: str, threshold: float = 0.7):
     detected_lngs = detect_langs(text)
     top_lng = detected_lngs[0]
     threshold_cnd = top_lng.lang == "de" and top_lng.prob < threshold
@@ -65,7 +65,7 @@ def translation_branch_chain():
             return info["question"]
 
     translate_chain = {
-        "translate": detect_german_language,
+        "translate": detect_foreign_language,
         "question": RunnablePassthrough(),
     } | _route
 
