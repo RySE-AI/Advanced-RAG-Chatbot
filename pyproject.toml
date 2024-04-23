@@ -36,6 +36,7 @@ sentence-transformers = "^2.6.1"
 deep-translator = "^1.11.4"
 grandalf = "^0.8"
 flashrank = "^0.2.0"
+llama-cpp-python = "^0.2.63"
 
 
 [tool.poetry.group.dev.dependencies]
